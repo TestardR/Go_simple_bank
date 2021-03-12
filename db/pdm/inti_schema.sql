@@ -21,11 +21,23 @@ CREATE TABLE "transfers" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
+CREATE TABLE "users" (
+  "id" int PRIMARY KEY,
+  "username" varchar NOT NULL,
+  "hashed_password" varchar NOT NULL,
+  "full_name" varchar NOT NULL,
+  "email" varchar NOT NULL,
+)
+
 ALTER TABLE "entries" ADD FOREIGN KEY ("account_id") REFERENCES "accounts" ("id");
 
 ALTER TABLE "transfers" ADD FOREIGN KEY ("from_account_id") REFERENCES "accounts" ("id");
 
 ALTER TABLE "transfers" ADD FOREIGN KEY ("to_account_id") REFERENCES "accounts" ("id");
+
+create INDEX ON "users" ("email")
+
+create INDEX ON "users" ("full_name")
 
 CREATE INDEX ON "accounts" ("owner");
 
